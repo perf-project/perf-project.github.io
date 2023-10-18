@@ -164,7 +164,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <p class="text-justify">
-                <strong>TL;DR:</strong> We present SparseNeRF, a simple yet effective method that synthesizes novel views given a few images. SparseNeRF distills robust local depth ranking priors from real-world inaccurate depth observations, such as pre-trained monocular depth estimation models or consumer-level depth sensors.
+                <strong>TL;DR:</strong> We present PERF, a 360-degree novel view synthesis framework that trains a panoramic neural radiance field from a single panorama.
                 </p>
                 <video id="v0" width="100%" autoplay loop muted controls>
                     <source src="img/demo_video_v8_task.mp4" type="video/mp4"/>
@@ -173,28 +173,12 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-                    Neural Radiance Field (NeRF) significantly degrades when only a limited number of views are available. To complement the lack of 3D information, depth-based models, such as DSNeRF and MonoSDF, explicitly assume the availability of accurate depth maps of multiple views. They linearly scale the accurate depth maps as supervision to guide the predicted depth of few-shot NeRFs. However, accurate depth maps are difficult and expensive to capture due to wide-range depth distances in the wild. 
-                    In this work, we present a new Sparse-view NeRF (<strong>SparseNeRF</strong>) framework that exploits depth priors from real-world inaccurate observations. The coarse depth observations are either from pre-trained depth models or coarse depth maps of consumer-level depth sensors. Since coarse depth maps are not strictly scaled to the ground-truth depth maps, we propose a simple yet effective constraint, a local depth ranking method, on NeRFs such that the expected depth ranking of the NeRF is consistent with that of the coarse depth maps in local patches. To preserve the spatial continuity of the estimated depth of NeRF, we further propose a spatial continuity constraint to encourage the consistency of the expected depth continuity of NeRF with coarse depth maps. Surprisingly, with simple depth ranking constraints, SparseNeRF outperforms all state-of-the-art few-shot NeRF methods (including depth-based models) on standard LLFF and DTU datasets. Moreover, we collect a new dataset NVS-RGBD that contains real-world depth maps from Azure Kinect, ZED 2, and iPhone 13 Pro. Extensive experiments on NVS-RGBD dataset also validate the superiority and generalizability of SparseNeRF.
+                    Neural Radiance Field (NeRF) has achieved substantial progress in novel view synthesis given multi-view images. Recently, some works have attempted to train a NeRF from a single image with 3D priors. They mainly focus on a limited field of view and there are few invisible occlusions, which greatly limits their scalability to real-world 360-degree panoramic scenarios with large-size occlusions. In this paper, we present PERF, a 360-degree novel view synthesis framework that trains a panoramic neural radiance field from a single panorama. Notably, PERF allows 3D roaming in a complex scene without expensive and tedious image collection. To achieve this goal, we propose a novel collaborative RGBD inpainting method and a progressive inpainting-and-erasing method to lift up a 360-degree 2D scene to a 3D scene. Specifically, we first predict a panoramic depth map as initialization given a single panorama and reconstruct visible 3D geometry with volume rendering. Then we introduce a collaborative RGBD inpainting approach into a NeRF for completing RGB images and depth maps from random views, deriving from an RGB stable diffusion model and a monocular depth estimator, aiming to generate the 3D geometry and the appearance of invisible regions. Finally, we introduce an inpainting-and-erasing strategy to avoid inconsistent geometry between a newly-added view and reference views. The two components are integrated into the learning of NeRFs in a unified optimization framework and achieves promising results. Extensive experiments on Replica and a new dataset PERF-in-the-wild demonstrate the superiority of our PERF over state-of-the-art methods. Our PERF can be widely used for real-world applications, such as panorama-to-3D, text-to-3D, and 3D scene stylization applications.
                 </p>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Motivation
-                </h3>
-                <br>
-                <video id="v0" width="100%" autoplay loop muted controls>
-                    <source src="img/demo_video_v8_motivation.mp4" type="video/mp4"/>
-                </video>
-                <p class="text-justify">
-                    Depth maps are coarse: (a) inconsistent 3D geometry; (b) and (c) time jittering; (d) scale-invariant error. Directly scaling the coarse depth maps to a NeRF leads to inconsistent geometry against the expected depth of the NeRF. Instead of directly supervising a NeRF with coarse depth priors, we relax hard depth constraints and distill robust local depth ranking from the coarse depth maps to a NeRF such that the depth ranking of a NeRF is consistent with that of coarse depth. That is, we supervise a NeRF with relative depth instead of absolute depth.
-               </p>
-            </div>
-        </div>
-    
-    
+
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
@@ -259,6 +243,7 @@
                     Related Links
                 </h3>
                 <p class="text-justify">
+                     <a href="https://sparsenerf.github.io/">SparseNeRF</a>: Novel view synthesis with sparse views. <br>
                     <a href="https://scene-dreamer.github.io/">SceneDreamer</a>: Unbounded 3D Scene Generation from 2D Image Collections. <br>
                     <a href="https://classifier-as-generator.github.io/">CaG</a>: Traditional Classification Neural Networks are Good Generators: They are Competitive with DDPMs and GANs.<br>
                     <a href="https://frozenburning.github.io/projects/text2light/">Text2light</a>: Zero-Shot Text-Driven HDR Panorama Generation. <br>
@@ -273,7 +258,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Acknowledgements
+                    Acknowledgments
                 </h3>
                 <p class="text-justify">
                     This work is supported by the National Research Foundation, Singapore under its AI Singapore Programme, NTU NAP, MOE AcRF Tier 2 (T2EP20221-0033), and under the RIE2020 Industry Alignment Fund - Industry Collaboration Projects (IAF-ICP) Funding Initiative, as well as cash and in-kind contribution from the industry partner(s).
