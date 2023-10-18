@@ -185,10 +185,11 @@
                     Framework
                 </h3>
                 <p style="text-align:center;">
-                    <image src="img/framework.png" class="img-responsive" alt="scales">
+                    <image src="img/framework6_7_page-0001.jpeg" class="img-responsive" alt="scales">
                 </p>
                 <p class="text-justify">
-                    Framework Overview. SparseNeRF consists of two streams, i.e., NeRF and depth prior distillation. As for NeRF, we use Mip-NeRF as the backbone. we use a NeRF reconstruction loss. As for depth prior distillation, we distill depth priors from a pre-trained depth model. Specifically, we propose a local depth ranking regularization and a spatial continuity regularization to distill robust depth priors from coarse depth maps.
+                    Framework Overview. PERF mainly consists of three modules, including \textbf{1)} single-view NeRF training with depth maps; \textbf{2)} progressive dual-inpainting of ROI (region of interest); and \textbf{3)} geometry-preserved dual-warping. 
+  Specifically, given a single panorama, we predict its depth map with a Depth Estimation model and train a NeRF with the input view as initialization. Then a progressive dual-inpainting module that contains a Depth Estimator and a Stable Diffusion is proposed to extend NeRF to random views. To avoid geometry conflict, a geometry-preserved dual-warping module is used to compute a mask of the conflicted regions and eliminate these regions. We fine-tune the panoramic NeRF with the reference single-view panorama and new panoramas generated from random viewpoints until convergence.
                 </p>
             </div>
         </div>
