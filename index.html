@@ -181,8 +181,8 @@
                     <image src="img/framework6_7_page-0001.jpeg" class="img-responsive" alt="scales">
                 </p>
                 <p class="text-justify">
-                    Framework Overview. PERF mainly consists of three modules, including \textbf{1)} single-view NeRF training with depth maps; \textbf{2)} progressive dual-inpainting of ROI (region of interest); and \textbf{3)} geometry-preserved dual-warping. 
-  Specifically, given a single panorama, we predict its depth map with a Depth Estimation model and train a NeRF with the input view as initialization. Then a progressive dual-inpainting module that contains a Depth Estimator and a Stable Diffusion is proposed to extend NeRF to random views. To avoid geometry conflict, a geometry-preserved dual-warping module is used to compute a mask of the conflicted regions and eliminate these regions. We fine-tune the panoramic NeRF with the reference single-view panorama and new panoramas generated from random viewpoints until convergence.
+                    PERF mainly consists of three modules, including 1) single-view NeRF training with depth maps; 2) collaborative RGBD inpainting; and 3) progressive inpainting-and-erasing. 
+  Specifically, given a single panorama, we predict its depth map with a Depth Estimation model and train a NeRF with the input view as initialization. Then a collaborative RGBD inpainting module that contains a Depth Estimator and a Stable Diffusion is proposed to extend NeRF to random views. To avoid geometry conflict, a progressive inpainting-and-erasing module is used to compute a mask of the conflicted regions and eliminate these regions. We fine-tune the panoramic NeRF with the reference single-view panorama and new panoramas generated from random viewpoints until convergence.
                 </p>
             </div>
         </div>
